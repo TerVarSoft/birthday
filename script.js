@@ -157,6 +157,13 @@ function handleOverlay() {
                 console.log('Error al reproducir audio:', error);
                 // Algunos navegadores requieren interacción del usuario primero
             });
+            
+            // Mostrar footer después de que termine la animación del card (0.8s)
+            const pageFooter = document.getElementById('pageFooter');
+            setTimeout(() => {
+                pageFooter.style.display = 'block';
+                pageFooter.style.animation = 'fadeIn 0.5s ease';
+            }, 800);
         }, 500);
     });
 }

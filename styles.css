@@ -9,6 +9,7 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -435,6 +436,23 @@ body {
     }
 }
 
+/* Page Footer */
+.page-footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9em;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.page-footer p {
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .invitation-card {
@@ -470,6 +488,11 @@ body {
     .open-btn {
         padding: 15px 35px;
         font-size: 1.2em;
+    }
+
+    .page-footer {
+        font-size: 0.8em;
+        padding: 15px;
     }
 }
 
