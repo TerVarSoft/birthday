@@ -139,32 +139,46 @@ function customizeInvitation() {
 function handleOverlay() {
     const overlay = document.getElementById('overlay');
     const openBtn = document.getElementById('openBtn');
+    const envelopeFlap = document.getElementById('envelopeFlap');
     const invitationCard = document.getElementById('invitationCard');
     const audio = document.getElementById('birthdayAudio');
     
     openBtn.addEventListener('click', function() {
-        // Ocultar overlay con animación
-        overlay.classList.add('hidden');
+        // Deshabilitar el botón para evitar múltiples clicks
+        openBtn.disabled = true;
+        openBtn.style.opacity = '0.7';
         
-        // Mostrar invitación después de un pequeño delay
+        // Abrir la solapa del sobre
+        envelopeFlap.classList.add('open');
+        
+        // Ocultar el contenido del sobre
+        const envelopeContent = document.querySelector('.envelope-content');
+        envelopeContent.style.opacity = '0';
+        envelopeContent.style.transition = 'opacity 0.3s ease';
+        
+        // Después de que se abra el sobre, mostrar la tarjeta y ocultar el overlay
         setTimeout(() => {
-            overlay.style.display = 'none';
-            invitationCard.style.display = 'block';
+            overlay.classList.add('hidden');
             
-            // Reproducir audio desde el segundo 1
-            audio.currentTime = 0.1;
-            audio.play().catch(error => {
-                console.log('Error al reproducir audio:', error);
-                // Algunos navegadores requieren interacción del usuario primero
-            });
-            
-            // Mostrar footer después de que termine la animación del card (0.8s)
-            const pageFooter = document.getElementById('pageFooter');
             setTimeout(() => {
-                pageFooter.style.display = 'block';
-                pageFooter.style.animation = 'fadeIn 0.5s ease';
-            }, 800);
-        }, 500);
+                overlay.style.display = 'none';
+                invitationCard.style.display = 'block';
+                
+                // Reproducir audio desde el segundo 1
+                audio.currentTime = 0.1;
+                audio.play().catch(error => {
+                    console.log('Error al reproducir audio:', error);
+                    // Algunos navegadores requieren interacción del usuario primero
+                });
+                
+                // Mostrar footer después de que termine la animación del card (0.8s)
+                const pageFooter = document.getElementById('pageFooter');
+                setTimeout(() => {
+                    pageFooter.style.display = 'block';
+                    pageFooter.style.animation = 'fadeIn 0.5s ease';
+                }, 800);
+            }, 500);
+        }, 1200); // Esperar a que termine la animación del sobre (1.2s)
     });
 }
 
