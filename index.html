@@ -7,8 +7,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Overlay inicial -->
+    <div class="overlay" id="overlay">
+        <div class="overlay-content">
+            <h2 class="overlay-title">🎉 ¡Tienes una Invitación! 🎉</h2>
+            <button class="open-btn" id="openBtn">Abrir Invitación</button>
+        </div>
+    </div>
+
+    <!-- Audio para reproducir -->
+    <audio id="birthdayAudio" loop>
+        <source src="audio.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="container">
-        <div class="invitation-card">
+        <div class="invitation-card" id="invitationCard" style="display: none;">
             <div class="confetti-container"></div>
             
             <div class="header">

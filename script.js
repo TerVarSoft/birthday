@@ -135,8 +135,35 @@ function customizeInvitation() {
     }
 }
 
+// Función para manejar el overlay y reproducir audio
+function handleOverlay() {
+    const overlay = document.getElementById('overlay');
+    const openBtn = document.getElementById('openBtn');
+    const invitationCard = document.getElementById('invitationCard');
+    const audio = document.getElementById('birthdayAudio');
+    
+    openBtn.addEventListener('click', function() {
+        // Ocultar overlay con animación
+        overlay.classList.add('hidden');
+        
+        // Mostrar invitación después de un pequeño delay
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            invitationCard.style.display = 'block';
+            
+            // Reproducir audio desde el segundo 1
+            audio.currentTime = 0.1;
+            audio.play().catch(error => {
+                console.log('Error al reproducir audio:', error);
+                // Algunos navegadores requieren interacción del usuario primero
+            });
+        }, 500);
+    });
+}
+
 // Inicializar todo cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
+    handleOverlay();
     customizeInvitation();
     createConfetti();
     updateDate();
