@@ -10,7 +10,7 @@
     <!-- Overlay inicial -->
     <div class="overlay" id="overlay">
         <div class="overlay-content">
-            <h2 class="overlay-title">🎉 ¡Tienes una Invitación! 🎉</h2>
+            <h2 class="overlay-title">¡Tienes una<br/>🎉 Invitación!🎉</h2>
             <button class="open-btn" id="openBtn">Abrir Invitación</button>
         </div>
     </div>
@@ -19,6 +19,11 @@
     <audio id="birthdayAudio" loop>
         <source src="audio.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- Botón flotante para controlar audio -->
+    <button class="audio-toggle-btn" id="audioToggleBtn" style="display: none;">
+        <span class="audio-icon" id="audioIcon">🔊</span>
+    </button>
 
     <div class="container">
         <div class="invitation-card" id="invitationCard" style="display: none;">
@@ -33,10 +38,24 @@
             <div class="content">
                 <div class="event-details">
                     <div class="detail-item">
-                        <span class="icon">📅</span>
+                        <span class="icon icon-calendar">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="3" y="4" width="18" height="18" rx="2" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+                                <rect x="3" y="4" width="18" height="6" rx="2" fill="#ff4444"/>
+                                <line x1="3" y1="10" x2="21" y2="10" stroke="#000000" stroke-width="2"/>
+                                <line x1="8" y1="2" x2="8" y2="6" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="16" y1="2" x2="16" y2="6" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="9" cy="14" r="1" fill="#000000"/>
+                                <circle cx="12" cy="14" r="1" fill="#000000"/>
+                                <circle cx="15" cy="14" r="1" fill="#000000"/>
+                                <circle cx="9" cy="17" r="1" fill="#000000"/>
+                                <circle cx="12" cy="17" r="1" fill="#000000"/>
+                                <circle cx="15" cy="17" r="1" fill="#000000"/>
+                            </svg>
+                        </span>
                         <div class="detail-content">
                             <h3>Fecha</h3>
-                            <p id="date">Viernes, 21 de Diciembre de 2025</p>
+                            <p id="date">Sabado, 22 de Diciembre de 2025</p>
                         </div>
                     </div>
 
@@ -44,7 +63,7 @@
                         <span class="icon">🕐</span>
                         <div class="detail-content">
                             <h3>Hora</h3>
-                            <p id="time">7:00 PM</p>
+                            <p id="time">8:00 PM</p>
                         </div>
                     </div>
 
@@ -52,7 +71,7 @@
                         <span class="icon">📍</span>
                         <div class="detail-content">
                             <h3>Lugar</h3>
-                            <p id="location">BeerTown, Merchor Urquidi</p>
+                            <p id="location">BeerTown, Av. Melchor Urquidi # 5555</p>
                         </div>
                     </div>
                 </div>

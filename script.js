@@ -117,11 +117,54 @@ function addParallaxEffect() {
     });
 }
 
+// Mapeo del teclado QWERTY español (cada letra -> letra a la derecha)
+const keyboardMap = {
+    // Primera fila
+    'q': 'w', 'w': 'e', 'e': 'r', 'r': 't', 't': 'y', 'y': 'u', 'u': 'i', 'i': 'o', 'o': 'p', 'p': 'q',
+    // Segunda fila
+    'a': 's', 's': 'd', 'd': 'f', 'f': 'g', 'g': 'h', 'h': 'j', 'j': 'k', 'k': 'l', 'l': 'a',
+    // Tercera fila
+    'z': 'x', 'x': 'c', 'c': 'v', 'v': 'b', 'b': 'n', 'n': 'm', 'm': 'z'
+};
+
+// Mapeo inverso para decodificar
+const reverseKeyboardMap = {};
+for (const [key, value] of Object.entries(keyboardMap)) {
+    reverseKeyboardMap[value] = key;
+}
+
+// Función para codificar el nombre
+function encodeName(name) {
+    return name.split('').map(char => {
+        const lowerChar = char.toLowerCase();
+        if (keyboardMap[lowerChar]) {
+            const encoded = keyboardMap[lowerChar];
+            return char === char.toUpperCase() ? encoded.toUpperCase() : encoded;
+        }
+        return char; // Mantener números, espacios y otros caracteres
+    }).join('');
+}
+
+// Función para decodificar el nombre
+function decodeName(encodedName) {
+    return encodedName.split('').map(char => {
+        const lowerChar = char.toLowerCase();
+        if (reverseKeyboardMap[lowerChar]) {
+            const decoded = reverseKeyboardMap[lowerChar];
+            return char === char.toUpperCase() ? decoded.toUpperCase() : decoded;
+        }
+        return char; // Mantener números, espacios y otros caracteres
+    }).join('');
+}
+
 // Función para personalizar el mensaje según query params
 function customizeInvitation() {
     const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('n') || '';
+    const encodedName = urlParams.get('n') || '';
     const gender = urlParams.get('g') || 'm'; // Por defecto masculino
+    
+    // Decodificar el nombre
+    const name = encodedName ? decodeName(encodedName) : '';
     
     const titleElement = document.querySelector('.title');
     
@@ -158,6 +201,10 @@ function handleOverlay() {
                 // Algunos navegadores requieren interacción del usuario primero
             });
             
+            // Mostrar botón de audio
+            const audioToggleBtn = document.getElementById('audioToggleBtn');
+            audioToggleBtn.style.display = 'flex';
+            
             // Mostrar footer después de que termine la animación del card (0.8s)
             const pageFooter = document.getElementById('pageFooter');
             setTimeout(() => {
@@ -168,9 +215,45 @@ function handleOverlay() {
     });
 }
 
+// Función para manejar el toggle del audio
+function handleAudioToggle() {
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    const audioIcon = document.getElementById('audioIcon');
+    const audio = document.getElementById('birthdayAudio');
+    
+    // Función para actualizar el icono según el estado del audio
+    function updateAudioIcon() {
+        if (audio.paused) {
+            audioIcon.textContent = '🔇';
+            audioToggleBtn.classList.add('muted');
+        } else {
+            audioIcon.textContent = '🔊';
+            audioToggleBtn.classList.remove('muted');
+        }
+    }
+    
+    // Listener para cambios en el estado del audio
+    audio.addEventListener('play', updateAudioIcon);
+    audio.addEventListener('pause', updateAudioIcon);
+    
+    // Listener para el botón
+    audioToggleBtn.addEventListener('click', function() {
+        if (audio.paused) {
+            // Reproducir audio
+            audio.play().catch(error => {
+                console.log('Error al reproducir audio:', error);
+            });
+        } else {
+            // Pausar audio
+            audio.pause();
+        }
+    });
+}
+
 // Inicializar todo cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     handleOverlay();
+    handleAudioToggle();
     customizeInvitation();
     createConfetti();
     updateDate();
