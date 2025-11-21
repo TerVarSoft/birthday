@@ -222,6 +222,20 @@ body {
     font-size: 1em;
 }
 
+.entry-fee-badge {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #8252aa  0%, #bb74d5 100%);
+    color: white;
+    font-size: 0.65em;
+    font-weight: bold;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 .message {
     text-align: center;
     margin: 30px 0;
